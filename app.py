@@ -17,7 +17,7 @@ import numpy as np
 from flask import Flask
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-server = flask.Flask(__name__)
+server = Flask.Flask(__name__)
 app = dash.Dash(__name__, server=server)
 server = app.server
 
