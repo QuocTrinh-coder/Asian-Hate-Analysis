@@ -18,9 +18,8 @@ from flask import Flask
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 from flask import render_template
 
-import flask
-app = flask.Flask(__name__)
-server = app.server
+from flask import Flask
+app = Flask(_name_)
 
 colors = {
     'background': '#FFFFFF',
