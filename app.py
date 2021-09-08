@@ -38,7 +38,20 @@ colors = {
 
 #data section
 df = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-df333= pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+key_words=["China Virus",                 
+'Wuhan Virus',             
+'Chinacoronavirus',              
+'China Corona Virus',            
+'Asian Virus',                  
+'fuckchina',                     
+'Go Back to China',            
+'chinaliedpeopledied',           
+'Chinese Virus',
+'Bat Eater',                   
+'nukechina'  ]
+
+dfkeywords= pd.DataFrame(key_words,columns=['key_words'])
+
 df2 = pd.read_csv("Unemployment.csv")
 #df = df.groupby(['state', 'incident_type', 'fy_declared'])
 #df.set_index()
@@ -54,10 +67,6 @@ df['Count of Wuhan Virus'] = df['Text'].str.count('Wuhan Virus')
 df['Count of Chinese Virus'] = df['Text'].str.count('Chinese Virus')
 df['Count of Bat Eater'] = df['Text'].str.count('Bat Eater')
 df['Count of nukechina'] = df['Text'].str.count('nukechina')
-df['Count of commieflu'] = df['Text'].str.count('commieflu')
-df['Count of yellowmanfever'] = df['Text'].str.count('yellowmanfever')
-df['Count of bat-eater'] = df['Text'].str.count('bat-eater')
-df['Count of disgustingchinese'] = df['Text'].str.count('disgustingchinese')
 
 
 #app layout section
@@ -81,7 +90,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                    'color': colors['text']}),
         dcc.Dropdown(id = "selected_keyword",
                 options=[
-                    {"label": x, "value": x} for x in sorted(df333['key word'].unique())],
+                    {"label": x, "value": x} for x in sorted(dfkeywords['key_words'].unique())],
                  multi=False,
                 value= "China Virus"
                  ), 
@@ -101,7 +110,7 @@ def update_graph(option_selected):
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
 
     df2.index = df2['Datetime']
-    df2 = df2.resample('d').sum().reset_index()
+    df2 = df2.resample('M').sum().reset_index()
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
     dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
     dftrump['Text'] = dftrump['Details: ']
