@@ -95,7 +95,7 @@ def update_graph(option_selected):
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
 
     df2.index = df2['Datetime']
-    df2 = df2.resample('M').sum().reset_index()
+    df2 = df2.resample('d').sum().reset_index()
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
     dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
     dftrump['Text'] = dftrump['Details: ']
@@ -112,13 +112,13 @@ def update_graph(option_selected):
     dftrump['Count of nukechina'] = dftrump['Text'].str.count('nukechina')
     dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
     dftrump.index = dftrump['Date:']
-    dftrump = dftrump.resample('M').sum().reset_index()
+    dftrump = dftrump.resample('d').sum().reset_index()
     dftrump['Datetime'] = dftrump['Date:']
     dff = df.copy()
     dftrump = dftrump.copy()
     dff['Datetime'] = pd.to_datetime(dff['Datetime'], errors='coerce')
     dff = dff.set_index("Datetime")
-    dff = dff.resample('M').sum()
+    dff = dff.resample('d').sum()
     dff = dff.reset_index()
     y = str(option_selected)
     dff = dff[['Datetime','Count of {}'.format(y) ]]
@@ -146,7 +146,7 @@ def update_graph(option_selected):
     dftrump['Text'] = dftrump['Details: ']
     dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
     dftrump.index = dftrump['Date:']
-    dftrump = dftrump.resample('M').sum().reset_index()
+    dftrump = dftrump.resample('d').sum().reset_index()
     dftrump['Datetime'] = dftrump['Date:']
     
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], errors='coerce')
