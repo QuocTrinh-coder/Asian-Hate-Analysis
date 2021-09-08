@@ -119,7 +119,7 @@ def update_graph(option_selected):
     y = str(option_selected)
     dff = dff[['Datetime','Count of {}'.format(y) ]]
     
-    dftrump = dftrump[['Datetime','Count of {}'.format(y) ]]
+    
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
     merged = dftrump.merge(dff, how='left', on='Datetime')
@@ -127,7 +127,7 @@ def update_graph(option_selected):
   
     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
     dffn = normalize(dff)
-    dftrumpn = normalize(dftrump)
+
     df2n = normalize(df2)
     
     dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
