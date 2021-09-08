@@ -1,25 +1,36 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
-#HATE TWEET GRAPH 9/6/2021
 
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
-import plotly.graph_objects as go # or plotly.express as px 
+import plotly.graph_objects as go 
 from dash.dependencies import Input, Output
 import numpy as np
 from flask import Flask
-#external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-from flask import render_template
+import flask
+import numpy as np
+from flask import Flask, request, jsonify, render_template
+import pickle
+import os
+import psycopg2
+import datetime
+
+import dash_table
 
 from flask import Flask
-app = Flask(__name__)
+import logging
+from flask import render_template
+
+
+from flask import Flask
+import logging
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+server = flask.Flask(__name__)
+app = dash.Dash(__name__, server=server)
+server = app.server
 
 colors = {
     'background': '#FFFFFF',
