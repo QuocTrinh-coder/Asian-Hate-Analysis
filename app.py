@@ -67,6 +67,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     html.H1("Racist Tweet Growth Rate Since Covid Hit", 
             style={'textAlign': 'center',
                    'color': colors['text']}),
+    html.h2("Hi Quoc & Nathan!!  ~Eva"),
         dcc.Dropdown(id = "selected_keyword",
                 options=[
                     {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
