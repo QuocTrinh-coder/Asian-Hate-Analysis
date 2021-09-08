@@ -67,7 +67,6 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     html.H1("Racist Tweet Growth Rate Since Covid Hit", 
             style={'textAlign': 'center',
                    'color': colors['text']}),
-    html.h2("Hi Quoc & Nathan!!  ~Eva"),
         dcc.Dropdown(id = "selected_keyword",
                 options=[
                     {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
@@ -121,7 +120,7 @@ def update_graph(option_selected):
     dftrump = dftrump[['Datetime','Count of {}'.format(y) ]]
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
-    merged = dftrump.merge(dff, how='right', on='Datetime')
+    merged = dftrump.merge(dff, how='left', on='Datetime')
     
     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
 
