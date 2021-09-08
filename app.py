@@ -139,7 +139,7 @@ def update_graph(option_selected):
     ss = pd.to_datetime(dftrump['Date:'])
     dfff = ss.groupby(ss.dt.floor('d')).size().reset_index(name='count')
     dfff["Datetime"] = dfff["Date:"]
-    dfff= dff[['Datetime', 'count']]
+    dfff= dfff[['Datetime', 'count']]
     dfff['Datetime'] = pd.to_datetime(dfff['Datetime'], errors='coerce')
     
     dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
