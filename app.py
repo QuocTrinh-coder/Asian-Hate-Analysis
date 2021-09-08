@@ -121,7 +121,7 @@ def update_graph(option_selected):
     dftrump = dftrump[['Datetime','Count of {}'.format(y) ]]
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
-    merged = dftrump.merge(dff, how='outer', on='Datetime')
+    merged = dftrump.merge(dff, how='right', on='Datetime')
     
     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
 
