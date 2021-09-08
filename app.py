@@ -54,6 +54,7 @@ df['Count of Wuhan Virus'] = df['Text'].str.count('Wuhan Virus')
 df['Count of Chinese Virus'] = df['Text'].str.count('Chinese Virus')
 df['Count of Bat Eater'] = df['Text'].str.count('Bat Eater')
 df['Count of nukechina'] = df['Text'].str.count('nukechina')
+
 #app layout section
 
 
@@ -99,17 +100,7 @@ def update_graph(option_selected):
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
     dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
     dftrump['Text'] = dftrump['Details: ']
-    dftrump['Count of China Virus'] = dftrump['Text'].str.count('China Virus')
-    dftrump['Count of fuckchina'] = dftrump['Text'].str.count('fuckchina')
-    dftrump['Count of Chinacoronavirus'] = dftrump['Text'].str.count('Chinacoronavirus')
-    dftrump['Count of China Corona Virus'] = dftrump['Text'].str.count('China Corona Virus')
-    dftrump['Count of Go Back to China'] = dftrump['Text'].str.count('Go Back to China')
-    dftrump['Count of chinaliedpeopledied'] = dftrump['Text'].str.count('chinaliedpeopledied')
-    dftrump['Count of Asian Virus'] = dftrump['Text'].str.count('Asian Virus')
-    dftrump['Count of Wuhan Virus'] = dftrump['Text'].str.count('Wuhan Virus')
-    dftrump['Count of Chinese Virus'] = dftrump['Text'].str.count('Chinese Virus')
-    dftrump['Count of Bat Eater'] = dftrump['Text'].str.count('Bat Eater')
-    dftrump['Count of nukechina'] = dftrump['Text'].str.count('nukechina')
+   
     dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
     dftrump.index = dftrump['Date:']
     dftrump = dftrump.resample('d').sum().reset_index()
@@ -155,11 +146,22 @@ def update_graph(option_selected):
     dftrump = dftrump.resample('d').sum().reset_index()
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dftrumpn = normalize(dfff)
+
+    dftweet = df.copy()
+    dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
+    s = pd.to_datetime(dftweet['Datetime'])
+    df33 = s.groupby(s.dt.floor('d')).size().reset_index(name='count')
+    df33['Datetime'] = pd.to_datetime(df33['Datetime'], errors='coerce')
+    df33['Datetime'] = pd.to_datetime(df33['Datetime'], utc = True)
+    dff3n = normalize(df33)
+
+
     
     fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], title = "Covid Cases Increases by Date in Different States")
     fig.add_scatter(x=dfff['Datetime'], y=dftrumpn['count'])
     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
-
+    fig.add_scatter(x=df33['Datetime'], y=dff3n['count'])
+    
     fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
