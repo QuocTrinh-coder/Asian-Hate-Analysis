@@ -19,7 +19,7 @@ from flask import Flask
 from flask import render_template
 
 from flask import Flask
-app = Flask(_name_)
+app = Flask(__name__)
 
 colors = {
     'background': '#FFFFFF',
