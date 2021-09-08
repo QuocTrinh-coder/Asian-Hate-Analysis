@@ -1,7 +1,7 @@
 
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go 
@@ -16,8 +16,8 @@ import os
 import psycopg2
 import datetime
 
-import dash_table
 
+from dash import dash_table
 from flask import Flask
 import logging
 from flask import render_template
