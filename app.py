@@ -141,11 +141,11 @@ def update_graph(option_selected):
     dftrump = dftrump.resample('M').sum().reset_index()
     dftrump['Datetime'] = dftrump['Date:']
     
-    dftrump['Date'] = pd.to_datetime(dftrump['Date'], errors='coerce')
+    dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], errors='coerce')
 
-    dftrump.index = dftrump['Date']
+    dftrump.index = dftrump['Datetime']
     dftrump = dftrump.resample('M').sum().reset_index()
-    dftrump['Date'] = pd.to_datetime(dftrump['Date'], utc = True)
+    dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dftrumpn = normalize(dftrump)
     
     fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], title = "Covid Cases Increases by Date in Different States")
