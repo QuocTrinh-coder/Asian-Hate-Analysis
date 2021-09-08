@@ -39,7 +39,7 @@ colors = {
 #data section
 df = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
 df33= pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-
+df2 = pd.read_csv("unemployment.csv")
 #df = df.groupby(['state', 'incident_type', 'fy_declared'])
 #df.set_index()
 # print(df)
@@ -83,7 +83,14 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
      [Output(component_id='my_tweet_map', component_property='figure'),
        Output(component_id='my_unemployment_map', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
-def update_graph(option_selected): 
+def update_graph(option_selected):
+    df2 = pd.read_csv("unemployment.csv")
+
+    df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
+
+    df2.index = df2['Datetime']
+    df2 = df2.resample('M').sum().reset_index()
+    df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
     dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
     dftrump['Text'] = dftrump['Details: ']
     dftrump['Count of China Virus'] = dftrump['Text'].str.count('China Virus')
@@ -114,13 +121,7 @@ def update_graph(option_selected):
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
     merged = dftrump.merge(dff, how='left', on='Datetime')
-    df2 = pd.read_csv("unemployment.csv")
-
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
-
-    df2.index = df2['Datetime']
-    df2 = df2.resample('M').sum().reset_index()
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
+    
     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
 
     fig = px.line(result, x="Datetime", y=result['Count of {}'.format(y)+'_y'], title = "Covid Cases Increases by Date in Different States")
