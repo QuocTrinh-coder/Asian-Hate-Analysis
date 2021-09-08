@@ -54,6 +54,11 @@ df['Count of Wuhan Virus'] = df['Text'].str.count('Wuhan Virus')
 df['Count of Chinese Virus'] = df['Text'].str.count('Chinese Virus')
 df['Count of Bat Eater'] = df['Text'].str.count('Bat Eater')
 df['Count of nukechina'] = df['Text'].str.count('nukechina')
+df['Count of commieflu'] = df['Text'].str.count('commieflu')
+df['Count of yellowmanfever'] = df['Text'].str.count('yellowmanfever')
+df['Count of bat-eater'] = df['Text'].str.count('bat-eater')
+df['Count of disgustingchinese'] = df['Text'].str.count('disgustingchinese')
+
 
 #app layout section
 
