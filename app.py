@@ -16,7 +16,10 @@ from dash.dependencies import Input, Output
 import numpy as np
 
 #external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__)
+
+server = flask.Flask(__name__)
+app = dash.Dash(__name__, server=server)
+server = app.server
 
 colors = {
     'background': '#FFFFFF',
