@@ -133,8 +133,23 @@ def update_graph(option_selected):
     dffn = normalize(dff)
     dftrumpn = normalize(dftrump)
     df2n = normalize(df2)
+
+    dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
+    dftrump['Text'] = dftrump['Details: ']
+    dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
+    dftrump.index = dftrump['Date:']
+    dftrump = dftrump.resample('M').sum().reset_index()
+    dftrump['Datetime'] = dftrump['Date:']
+    
+    dftrump['Date'] = pd.to_datetime(dftrump['Date'], errors='coerce')
+
+    dftrump.index = dftrump['Date']
+    dftrump = dftrump.resample('M').sum().reset_index()
+    dftrump['Date'] = pd.to_datetime(dftrump['Date'], utc = True)
+    dftrumpn = normalize(dftrump)
+    
     fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], title = "Covid Cases Increases by Date in Different States")
-    fig.add_scatter(x=dftrump['Datetime'], y=dftrumpn['Count of {}'.format(y)])
+    fig.add_scatter(x=dftrump['Datetime'], y=dftrumpn['count'])
     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
     fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
