@@ -122,12 +122,14 @@ def update_graph(option_selected):
     dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
     merged = dftrump.merge(dff, how='left', on='Datetime')
     
+  
     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
-
-    fig = px.line(result, x="Datetime", y=result['Count of {}'.format(y)+'_y'], title = "Covid Cases Increases by Date in Different States")
-    fig.add_scatter(x=result['Datetime'], y=result['Count of {}'.format(y)+'_x'])
-    fig.add_scatter(x=result['Datetime'], y=result['Unemployment_Rate'])
-    
+    dffn = normalize(dff)
+    dftrumpn = normalize(dftrump)
+    df2n = normalize(df2)
+    fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], title = "Covid Cases Increases by Date in Different States")
+    fig.add_scatter(x=dftrump['Datetime'], y=dftrumpn['Count of {}'.format(y)])
+    fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
     fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
