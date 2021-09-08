@@ -38,7 +38,7 @@ colors = {
 
 #data section
 df = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-df33= pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+df333= pd.read_csv("ALL_TWEET_SENTIMENT.csv")
 df2 = pd.read_csv("Unemployment.csv")
 #df = df.groupby(['state', 'incident_type', 'fy_declared'])
 #df.set_index()
@@ -81,7 +81,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                    'color': colors['text']}),
         dcc.Dropdown(id = "selected_keyword",
                 options=[
-                    {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
+                    {"label": x, "value": x} for x in sorted(df333['key word'].unique())],
                  multi=False,
                 value= "China Virus"
                  ), 
@@ -152,7 +152,7 @@ def update_graph(option_selected):
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
     dftrumpn = normalize(dfff)
 
-    dftweet = df.copy()
+    dftweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
     dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
     s = pd.to_datetime(dftweet['Datetime'])
     df33 = s.groupby(s.dt.floor('d')).size().reset_index(name='count')
