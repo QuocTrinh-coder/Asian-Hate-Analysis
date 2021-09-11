@@ -171,7 +171,7 @@ def update_graph(option_selected):
 
 
 
-    fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], hover_text = "Text" title = "Racist Tweet Rate")
+    fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], hover_data = "Text", title = "Racist Tweet Rate")
     fig.add_scatter(x=dfff['Datetime'], y=dftrumpn['count'])
     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
     fig.add_scatter(x=df33['Datetime'], y=dff3n['count'])
