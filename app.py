@@ -126,7 +126,7 @@ def update_graph(option_selected):
     dff = dff.resample('d').sum()
     dff = dff.reset_index()
     y = str(option_selected)
-    dff = dff[['Datetime','Count of {}'.format(y) ]]
+    dff = dff[['Datetime','Count of {}'.format(y),'Text' ]]
 
 
     dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
