@@ -151,10 +151,10 @@ def update_graph(option_selected):
     covid.index = covid['submission_date']
     covid = covid.resample('d').sum().reset_index()
     covid['submission_date'] = pd.to_datetime(covid['submission_date'], utc = True)
-    covid = covid[['submission_date', 'new_case']]
-    covid=covid[pd.to_numeric(covid['new_case'], errors='coerce').notnull()]
-    covid['new_case'] = covid['new_case'].astype(float)
-
+    covid = covid[['submission_date', 'new_death']]
+    covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
+    covid['new_death'] = covid['new_death'].astype(float)
+    covidn = normalize(covid)
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
 
@@ -167,25 +167,13 @@ def update_graph(option_selected):
 
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
-    fig.add_scatter(x=covid['submission_date'], y=covidn['new_case'])
+    fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
 
 
 
-    tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-    tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
 
-    tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
-    tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], utc = True)
-    tweet = tweet[['Datetime', 'key word']]
-    # tweet = tweet.set_index('Datetime')
 
-    result = tweet.reset_index().groupby(                                        \
-                  [pd.Grouper(key='Datetime', freq='1w'), 'key word'] \
-                ).count().unstack(fill_value=0).stack().reset_index()
-    # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
-    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
-    
-    # fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
+    fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
 
