@@ -203,7 +203,7 @@ def update_graph(option_selected):
     result = covid_data.reset_index().groupby(                                        \
             [pd.Grouper(key='submission_case', freq='1w'), 'key word'] \
             ).count().unstack(fill_value=0).stack().reset_index()
-    fig4 = px.line(covid_data, x = "submission_date", y = "new_case", title = "Graph of New Covid Cases")
+    fig4 = px.line(result, x = "submission_date", y = "new_case", title = "Graph of New Covid Cases")
 
     return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 
