@@ -205,6 +205,7 @@ def update_graph(option_selected):
             [pd.Grouper(key='submission_case', freq='1w'), 'key word'] \
             ).count().unstack(fill_value=0).stack().reset_index()
     fig4 = px.line(result, x = "submission_date", y = "new_case", title = "Graph of New Covid Cases")
+    fig3 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
 
     return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 
