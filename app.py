@@ -105,78 +105,81 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
        Output(component_id='my_unemployment_map', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
-    df2 = pd.read_csv("Unemployment.csv")
-
+     df2 = pd.read_csv("unemployment.csv")
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
 
     df2.index = df2['Datetime']
     df2 = df2.resample('M').sum().reset_index()
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
-    dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
-    dftrump['Text'] = dftrump['Details: ']
-
-    dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
-    dftrump.index = dftrump['Date:']
-    dftrump = dftrump.resample('d').sum().reset_index()
-    dftrump['Datetime'] = dftrump['Date:']
-    dff = df.copy()
-    dftrump = dftrump.copy()
-    dff['Datetime'] = pd.to_datetime(dff['Datetime'], errors='coerce')
-    dff = dff.set_index("Datetime")
-    dff = dff.resample('d').sum()
-    dff = dff.reset_index()
-    y = str(option_selected)
-    #dff = dff[['Datetime','Count of {}'.format(y),'Text' ]]
-
-
-    dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
-    dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
-    merged = dftrump.merge(dff, how='left', on='Datetime')
-
-
-    result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
-    dffn = normalize(dff)
-
-    df2n = normalize(df2)
-
-    dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
-    dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
-    ss = pd.to_datetime(dftrump['Date:'])
-    dfff = ss.groupby(ss.dt.floor('d')).size().reset_index(name='count')
-    dfff["Datetime"] = dfff["Date:"]
-    dfff= dfff[['Datetime', 'count']]
-    dfff['Datetime'] = pd.to_datetime(dfff['Datetime'], errors='coerce')
-
-    dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
-    dftrump['Text'] = dftrump['Details: ']
-    dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
-    dftrump.index = dftrump['Date:']
-    dftrump = dftrump.resample('d').sum().reset_index()
-    dftrump['Datetime'] = dftrump['Date:']
-
-    dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], errors='coerce')
-
-    dftrump.index = dftrump['Datetime']
-    dftrump = dftrump.resample('d').sum().reset_index()
-    dftrump['Datetime'] = pd.to_datetime(dftrump['Datetime'], utc = True)
-    dftrumpn = normalize(dfff)
-
-    dftweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+#     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
+#     dffn = normalize(dff)
+#     dftrumpn = normalize(dftrump)
+#     df2n = normalize(df2)
+#     fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], title = "Covid Cases Increases by Date in Different States")
+#     fig.add_scatter(x=dftrump['Datetime'], y=dftrumpn['Count of {}'.format(y)])
+#     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
+    dftweet = df.copy()
     dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
     s = pd.to_datetime(dftweet['Datetime'])
     df33 = s.groupby(s.dt.floor('d')).size().reset_index(name='count')
     df33['Datetime'] = pd.to_datetime(df33['Datetime'], errors='coerce')
+    
+
+    dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
+    dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
+    ss = pd.to_datetime(dftrump['Date:'])
+    dff = ss.groupby(ss.dt.floor('d')).size().reset_index(name='count')
+    dff["Datetime"] = dff["Date:"]
+    dff= dff[['Datetime', 'count']]
+    dff['Datetime'] = pd.to_datetime(dff['Datetime'], errors='coerce')
+    dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
     df33['Datetime'] = pd.to_datetime(df33['Datetime'], utc = True)
-    dff3n = normalize(df33)
+   
+    mergedd = df33.merge(dff, how='right', on='Datetime')
+    dfcovid = pd.read_csv('covid_cases_US.csv')
+    
+    # merged = normalize(merged)
+    dffn = normalize(df33)
+    dftrumpn = normalize(mergedd)
+    df2n = normalize(df2)
+    tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv",parse_dates=['Datetime'])
+    tweet = tweet.set_index('Datetime')
+
+    result = tweet.reset_index().groupby(                                        \
+              [pd.Grouper(key='Datetime', freq='1d'), 'analysis'] \
+            ).count().unstack(fill_value=0).stack().reset_index()
+    result=result[pd.to_numeric(result['Text'], errors='coerce').notnull()]
+    resulty = result[['Datetime', 'Text', ]]
+    
+    covid = results_df
+    covid['submission_date'] = pd.to_datetime(covid['submission_date'], errors='coerce')
+    
+    covid.index = covid['submission_date']
+    covid = covid.resample('d').sum().reset_index()
+    covid['submission_date'] = pd.to_datetime(covid['submission_date'], utc = True)
+    covid = covid[['submission_date', 'new_death']]
+    covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
+    covid['new_death'] = covid['new_death'].astype(float)
+    covidn = normalize(covid)
+    # result['Text'] = result['Text'].astype(float)
+    resultn = normalize(resulty)
+
+    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Covid Cases Increases by Date in Different States")
+
+
+    
+    fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'])
+#     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
+ 
+    
+    #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
+#     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
 
 
 
-    fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], hover_data = "Text", title = "Racist Tweet Rate")
-    fig.add_scatter(x=dfff['Datetime'], y=dftrumpn['count'])
-    fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
-    fig.add_scatter(x=df33['Datetime'], y=dff3n['count'])
 
-    fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Unemployment Graph")
+
+    fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
 
