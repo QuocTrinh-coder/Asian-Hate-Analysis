@@ -183,12 +183,11 @@ def update_graph(option_selected):
     tweet = tweet[['Datetime', 'key word']]
     # tweet = tweet.set_index('Datetime')
 
-    result = tweet.reset_index().groupby(                                        \
+    results = tweet.reset_index().groupby(                                        \
                   [pd.Grouper(key='Datetime', freq='1w'), 'key word'] \
                 ).count().unstack(fill_value=0).stack().reset_index()
-    fig3 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
+    fig3 = px.bar(results, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+
 
     # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
     #Need Data for Covid graph
