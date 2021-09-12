@@ -172,7 +172,7 @@ def update_graph(option_selected):
 
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
-    fig2 = px.line(x=covid['submission_date'], y=covidn['new_death'])
+    fig2 = px.line(x=covid['submission_date'], y=covid['new_death'])
 
 
 
