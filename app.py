@@ -151,9 +151,9 @@ def update_graph(option_selected):
     covid.index = covid['submission_date']
     covid = covid.resample('d').sum().reset_index()
     covid['submission_date'] = pd.to_datetime(covid['submission_date'], utc = True)
-    covid = covid[['submission_date', 'new_death']]
-    covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
-    covid['new_death'] = covid['new_death'].astype(float)
+    covid = covid[['submission_date', 'new_case']]
+    covid=covid[pd.to_numeric(covid['new_case'], errors='coerce').notnull()]
+    covid['new_case'] = covid['new_case'].astype(float)
     covidn = normalize(covid)
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
