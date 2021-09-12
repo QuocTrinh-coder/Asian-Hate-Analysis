@@ -167,13 +167,11 @@ def update_graph(option_selected):
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'])
 #     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
+    fig2 = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Covid Cases Increases by Date in Different States")
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
     # fig.add_scatter(x=covid['submission_date'], y=covidn['new_case'])
     #Unemployment Rate
-    fig3 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
 
 
 
@@ -188,8 +186,11 @@ def update_graph(option_selected):
     result = tweet.reset_index().groupby(                                        \
                   [pd.Grouper(key='Datetime', freq='1w'), 'key word'] \
                 ).count().unstack(fill_value=0).stack().reset_index()
-    # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
     fig3 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
+
+    # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
     #Need Data for Covid graph
     covid_data = pd.read_csv("Covid_data.csv")
 
