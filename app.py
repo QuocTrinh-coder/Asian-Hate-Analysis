@@ -167,7 +167,7 @@ def update_graph(option_selected):
 
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
-    fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
+    fig.add_scatter(x=covid['submission_date'], y=covidn['new_case'])
 
 
 
