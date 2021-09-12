@@ -183,7 +183,7 @@ def update_graph(option_selected):
                   [pd.Grouper(key='Datetime', freq='1w'), 'key word'] \
                 ).count().unstack(fill_value=0).stack().reset_index()
     # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
-    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Derogatory Slurs Used on Twitter")
+    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
 
     # fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
