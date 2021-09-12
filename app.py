@@ -38,7 +38,7 @@ colors = {
 
 #data section
 df = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-df2 = pd.read_csv("unemployment.csv")
+# df2 = pd.read_csv("unemployment.csv")
 key_words=["China Virus",
 'Wuhan Virus',
 'Chinacoronavirus',
@@ -110,12 +110,12 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
        Output(component_id='my_covid_graph', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
-    df2 =df2.copy()
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
-
-    df2.index = df2['Datetime']
-    df2 = df2.resample('M').sum().reset_index()
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
+    # df2 =df2.copy()
+    # df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
+    #
+    # df2.index = df2['Datetime']
+    # df2 = df2.resample('M').sum().reset_index()
+    # df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
 
     dftweet = df.copy()
     dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
@@ -171,7 +171,7 @@ def update_graph(option_selected):
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
     # fig.add_scatter(x=covid['submission_date'], y=covidn['new_case'])
     #Unemployment Rate
-    fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Graph of National Unemployment")
+    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
 
