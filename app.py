@@ -52,7 +52,7 @@ key_words=["China Virus",
 
 dfkeywords= pd.DataFrame(key_words,columns=['key_words'])
 
-df2 = pd.read_csv("unemployment.csv")
+
 #df = df.groupby(['state', 'incident_type', 'fy_declared'])
 #df.set_index()
 # print(df)
@@ -105,7 +105,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
        Output(component_id='my_unemployment_map', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected): 
-    df2 = df2.copy()
+    df2 = pd.read_csv("unemployment.csv")
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
 
     df2.index = df2['Datetime']
