@@ -38,6 +38,7 @@ colors = {
 
 #data section
 df = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+df2 = pd.read_csv("unemployment.csv")
 key_words=["China Virus",
 'Wuhan Virus',
 'Chinacoronavirus',
@@ -109,7 +110,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
        Output(component_id='my_covid_graph', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
-    df2 = pd.read_csv("unemployment.csv")
+    df2 =df2.copy()
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
 
     df2.index = df2['Datetime']
