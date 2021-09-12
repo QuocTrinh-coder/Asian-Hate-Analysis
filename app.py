@@ -111,7 +111,13 @@ def update_graph(option_selected):
     df2.index = df2['Datetime']
     df2 = df2.resample('M').sum().reset_index()
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
-
+#     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
+#     dffn = normalize(dff)
+#     dftrumpn = normalize(dftrump)
+#     df2n = normalize(df2)
+#     fig = px.line(dff, x="Datetime", y=dffn['Count of {}'.format(y)], title = "Covid Cases Increases by Date in Different States")
+#     fig.add_scatter(x=dftrump['Datetime'], y=dftrumpn['Count of {}'.format(y)])
+#     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
     dftweet = df.copy()
     dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
     s = pd.to_datetime(dftweet['Datetime'])
@@ -145,7 +151,7 @@ def update_graph(option_selected):
     result=result[pd.to_numeric(result['Text'], errors='coerce').notnull()]
     resulty = result[['Datetime', 'Text', ]]
 
-    covid = pd.read_csv('Covid_data.csv')
+    covid = results_df
     covid['submission_date'] = pd.to_datetime(covid['submission_date'], errors='coerce')
 
     covid.index = covid['submission_date']
