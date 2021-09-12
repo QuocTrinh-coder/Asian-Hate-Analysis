@@ -97,20 +97,22 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     html.Div(id ='output_container'),
     html.Br(),
     dcc.Graph(id = 'my_tweet_map', figure={}),
-    dcc.Graph(id = 'my_unemployment_map', figure={})
+    dcc.Graph(id = 'my_unemployment_map', figure={}),
+    dcc.Graph(id = 'stacked_bargraph', figure={})
 ])
 
 @app.callback(
      [Output(component_id='my_tweet_map', component_property='figure'),
-       Output(component_id='my_unemployment_map', component_property='figure')],
+       Output(component_id='my_unemployment_map', component_property='figure'),
+       Output(component_id='stacked_bargraphf', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
-    df2 = pd.read_csv("unemployment.csv")
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
-
-    df2.index = df2['Datetime']
-    df2 = df2.resample('M').sum().reset_index()
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
+    # df2 = pd.read_csv("unemployment.csv")
+    # df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
+    #
+    # df2.index = df2['Datetime']
+    # df2 = df2.resample('M').sum().reset_index()
+    # df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
 #     result = pd.merge(merged, df2, how= 'outer', on=["Datetime"])
 #     dffn = normalize(dff)
 #     dftrumpn = normalize(dftrump)
@@ -165,25 +167,34 @@ def update_graph(option_selected):
     resultn = normalize(resulty)
 
     fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Covid Cases Increases by Date in Different States")
-
-
-
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'])
 #     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
-    fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
+    fig2 = px.line(x=covid['submission_date'], y=covidn['new_death'])
 
 
 
+    tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+    tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
 
+    tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
+    tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], utc = True)
+    tweet = tweet[['Datetime', 'key word']]
+    # tweet = tweet.set_index('Datetime')
 
-    fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
+    result = tweet.reset_index().groupby(                                        \
+                  [pd.Grouper(key='Datetime', freq='1w'), 'key word'] \
+                ).count().unstack(fill_value=0).stack().reset_index()
+    # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
+    fig3 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Derogatory Slurs Used on Twitter")
+
+    # fig3 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
 
-    return fig, fig2 #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
+    return fig, fig2, fig3 #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 
 
 if __name__ == '__main__':
