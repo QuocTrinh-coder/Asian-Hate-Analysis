@@ -104,8 +104,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
      [Output(component_id='my_tweet_map', component_property='figure'),
        Output(component_id='my_unemployment_map', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
-def update_graph(option_selected):
-     df2 = pd.read_csv("unemployment.csv")
+def update_graph(option_selected): 
+    df2 = pd.read_csv("unemployment.csv")
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
 
     df2.index = df2['Datetime']
@@ -173,7 +173,7 @@ def update_graph(option_selected):
  
     
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
-#     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
+    fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
 
 
 
