@@ -80,26 +80,69 @@ def normalize(df):
         result[feature_name] = (df[feature_name] - min_value) / (max_value - min_value)
     return result
 
-
-
-
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+app.layout = html.Div(style={'backgroundColor': colors['background']},
+children=[
 
     html.H1("Racist Tweet Growth Rate Since Covid Hit",
             style={'textAlign': 'center',
                    'color': colors['text']}),
-        dcc.Dropdown(id = "selected_keyword",
-                options=[
-                    {"label": x, "value": x} for x in sorted(dfkeywords['key_words'].unique())],
-                 multi=False,
-                value= "China Virus"
-                 ),
-    html.Div(id ='output_container'),
-    html.Br(),
-    dcc.Graph(id = 'my_tweet_map', figure={}),
-    dcc.Graph(id = 'my_unemployment_map', figure={}),
-    dcc.Graph(id = 'my_covid_map', figure={}),
+                       dcc.Dropdown(id = "selected_keyword",
+                               options=[
+                                   {"label": x, "value": x} for x in sorted(dfkeywords['key_words'].unique())],
+                                multi=False,
+                               value= "China Virus"
+                                ),
+    # All elements from the top of the page
+    html.Div([
+        html.Div([
+
+
+            dcc.Graph(
+                id='my_tweet_map',
+                figure=figure{}
+            ),
+        ], className='six columns'),
+        html.Div([
+
+            dcc.Graph(
+                id='my_unemployment_map',
+                figure=figure{}
+            ),
+        ], className='six columns'),
+    ], className='row'),
+    # New Div for all elements in the new 'row' of the page
+    html.Div([
+
+        dcc.Graph(
+            id='my_covid_map',
+            figure=figure{}
+        ),
+    ], className='row'),
 ])
+
+
+# 
+# app.layout = html.Div(style={'backgroundColor': colors['background']},
+# children=[
+#
+#     html.H1("Racist Tweet Growth Rate Since Covid Hit",
+#             style={'textAlign': 'center',
+#                    'color': colors['text']}),
+#         dcc.Dropdown(id = "selected_keyword",
+#                 options=[
+#                     {"label": x, "value": x} for x in sorted(dfkeywords['key_words'].unique())],
+#                  multi=False,
+#                 value= "China Virus"
+#                  ),
+#     html.Div(id ='output_container'),
+#     html.Br(),
+#     dcc.Graph(id = 'my_tweet_map', figure={}),
+#     dcc.Graph(id = 'my_unemployment_map', figure={}),
+#     dcc.Graph(id = 'my_covid_map', figure={}),
+# ])
+
+
+
 
 @app.callback(
      [Output(component_id='my_tweet_map', component_property='figure'),
