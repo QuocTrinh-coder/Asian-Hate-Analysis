@@ -97,7 +97,7 @@ app.layout = html.Div(
                                      className='dropdown_items',
                                      children=[    dcc.Dropdown(id = "selected_keyword",
                 options=[
-                    {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
+                    {"label": x, "value": x} for x in sorted(dfkeywords['key_words'].unique())],
                  multi=False,
                 value= "China Virus"
                  ),
