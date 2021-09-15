@@ -15,7 +15,7 @@ import pickle
 import os
 import psycopg2
 import datetime
-import dash_bootstrap_components as dbc
+
 
 from dash import dash_table
 from flask import Flask
@@ -31,13 +31,27 @@ log.setLevel(logging.ERROR)
 server = flask.Flask(__name__)
 app = dash.Dash(__name__, server=server)
 server = app.server
+
 colors = {
     'background': '#FFFFFF',
-    'text': '#808080'}
+    'text': '#000000'}
 
 #data section
 df = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-df33= pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+key_words=["China Virus",
+'Wuhan Virus',
+'Chinacoronavirus',
+'China Corona Virus',
+'Asian Virus',
+'fuckchina',
+'Go Back to China',
+'chinaliedpeopledied',
+'Chinese Virus',
+'Bat Eater',
+'nukechina'  ]
+
+dfkeywords= pd.DataFrame(key_words,columns=['key_words'])
+
 
 #df = df.groupby(['state', 'incident_type', 'fy_declared'])
 #df.set_index()
@@ -53,7 +67,11 @@ df['Count of Wuhan Virus'] = df['Text'].str.count('Wuhan Virus')
 df['Count of Chinese Virus'] = df['Text'].str.count('Chinese Virus')
 df['Count of Bat Eater'] = df['Text'].str.count('Bat Eater')
 df['Count of nukechina'] = df['Text'].str.count('nukechina')
+
+
 #app layout section
+
+
 def normalize(df):
     result = df.copy()
     for feature_name in df.columns:
@@ -61,6 +79,7 @@ def normalize(df):
         min_value = df[feature_name].min()
         result[feature_name] = (df[feature_name] - min_value) / (max_value - min_value)
     return result
+
 
 
 
@@ -114,29 +133,10 @@ app.layout = html.Div(
 )
 
 
-
-# app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-
-#     html.H1("Racist Tweet Growth Rate Since Covid Hit",
-#             style={'textAlign': 'center',
-#                    'color': colors['text']}),
-#         dcc.Dropdown(id = "selected_keyword",
-#                 options=[
-#                     {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
-#                  multi=False,
-#                 value= "China Virus"
-#                  ),
-#     html.Div(id ='output_container'),
-#     html.Br(),
-#     dcc.Graph(id = 'my_tweet_map', figure={}),
-#     dcc.Graph(id = 'my_unemployment_map', figure={}),
-#     dcc.Graph(id = 'my_covid_map', figure={}),
-# ])
-
 @app.callback(
-     Output(component_id='my_tweet_map', component_property='figure'),
-       Output(component_id='stack_bargraph', component_property='figure'),
-      Output(component_id='my_covid_map', component_property='figure'),
+     [Output(component_id='my_tweet_map', component_property='figure'),
+       Output(component_id='my_unemployment_map', component_property='figure'),
+      Output(component_id='my_covid_map', component_property='figure')],
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
     # df2 = pd.read_csv("unemployment.csv")
@@ -177,21 +177,20 @@ def update_graph(option_selected):
     covid.index = covid['submission_date']
     covid = covid.resample('d').sum().reset_index()
     covid['submission_date'] = pd.to_datetime(covid['submission_date'], utc = True)
-    covid = covid[['submission_date', 'new_death']]
-    covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
-    covid['new_death'] = covid['new_death'].astype(float)
+    covid = covid[['submission_date', 'new_case']]
+    covid=covid[pd.to_numeric(covid['new_case'], errors='coerce').notnull()]
+    covid['new_case'] = covid['new_case'].astype(float)
     covidn = normalize(covid)
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
-    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Covid Cases Increases by Date in Different States")
+    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump's Tweet and Twitter Sentiment")
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'])
 #     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
 #     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
-    fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
-    fig3.add_scatter(x=df33['Datetime'], y=df33['count'])
+    fig3 = px.line(covid, x='submission_date', y=covid['new_case'], title= "New Covid Cases Nationally")
 
 
 
@@ -206,8 +205,6 @@ def update_graph(option_selected):
                 ).count().unstack(fill_value=0).stack().reset_index()
     # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
     fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
-    fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
-
     # fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
