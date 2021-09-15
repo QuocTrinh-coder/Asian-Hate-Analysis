@@ -86,12 +86,6 @@ children=[
     html.H1("Racist Tweet Growth Rate Since Covid Hit",
             style={'textAlign': 'center',
                    'color': colors['text']}),
-                       dcc.Dropdown(id = "selected_keyword",
-                               options=[
-                                   {"label": x, "value": x} for x in sorted(dfkeywords['key_words'].unique())],
-                                multi=False,
-                               value= "China Virus"
-                                ),
     # All elements from the top of the page
     html.Div([
         html.Div([
@@ -99,30 +93,35 @@ children=[
 
             dcc.Graph(
                 id='my_tweet_map',
-                figure=figure{}
+                figure={}
             ),
         ], className='six columns'),
         html.Div([
 
             dcc.Graph(
                 id='my_unemployment_map',
-                figure=figure{}
+                figure={}
             ),
         ], className='six columns'),
     ], className='row'),
     # New Div for all elements in the new 'row' of the page
     html.Div([
+        html.H1(children='Hello Dash'),
+
+        html.Div(children='''
+            Dash: A web application framework for Python.
+        '''),
 
         dcc.Graph(
             id='my_covid_map',
-            figure=figure{}
+            figure={}
         ),
     ], className='row'),
 ])
 
 
-# 
-# app.layout = html.Div(style={'backgroundColor': colors['background']},
+
+# app.layout = html.Div(style={'backgroundColor': colors['background']}, 
 # children=[
 #
 #     html.H1("Racist Tweet Growth Rate Since Covid Hit",
