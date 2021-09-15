@@ -15,7 +15,7 @@ import pickle
 import os
 import psycopg2
 import datetime
-
+import dash_bootstrap_components as dbc
 
 from dash import dash_table
 from flask import Flask
