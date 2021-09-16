@@ -139,24 +139,6 @@ app.layout = html.Div(
 
 
 
-# app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-
-#     html.H1("Racist Tweet Growth Rate Since Covid Hit",
-#             style={'textAlign': 'center',
-#                    'color': colors['text']}),
-#         dcc.Dropdown(id = "selected_keyword",
-#                 options=[
-#                     {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
-#                  multi=False,
-#                 value= "China Virus"
-#                  ),
-#     html.Div(id ='output_container'),
-#     html.Br(),
-#     dcc.Graph(id = 'my_tweet_map', figure={}),
-#     dcc.Graph(id = 'my_unemployment_map', figure={}),
-#     dcc.Graph(id = 'my_covid_map', figure={}),
-# ])
-
 @app.callback(
      Output(component_id='my_tweet_map', component_property='figure'),
        Output(component_id='stack_bargraph', component_property='figure'),
@@ -217,7 +199,15 @@ def update_graph(option_selected):
     fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
     fig3.add_scatter(x=df33['Datetime'], y=df33['count'])
 
-
+    fig.update_layout(
+    xaxis_title="Datetime",
+    yaxis_title="Magnitude",
+   # font=dict(
+   #     family="Courier New, monospace",
+  #      size=18,
+    #    color="#7f7f7f"
+   # )
+)
 
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
     tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
