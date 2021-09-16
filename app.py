@@ -190,7 +190,7 @@ def update_graph(option_selected):
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
     fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Twitter Sentiment & Trump Tweet Relationship Over Time")
-    fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'])
+    fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
 #     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
 
