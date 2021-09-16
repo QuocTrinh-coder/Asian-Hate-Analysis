@@ -189,7 +189,7 @@ def update_graph(option_selected):
     covidn = normalize(covid)
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
-    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Twitter Sentiment & Trump Tweet Relationship Over Time")
+    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ")
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
 #     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
 
@@ -197,7 +197,7 @@ def update_graph(option_selected):
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
 #     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
     fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
-    fig3.add_scatter(x=df33['Datetime'], y=df33['count'])
+    fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
 
     fig.update_layout(
     xaxis_title="Datetime",
