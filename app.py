@@ -29,7 +29,7 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 server = flask.Flask(__name__)
-app = dash.Dash(__name__, server=server)
+app = dash.Dash(__name__, server=server,  external_stylesheets=[dbc.themes.GRID])
 server = app.server
 
 #data section
