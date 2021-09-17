@@ -145,12 +145,12 @@ app.layout = html.Div(
       Output(component_id='my_covid_map', component_property='figure'),
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
-    # df2 = pd.read_csv("unemployment.csv")
-    # df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
+    df2 = pd.read_csv("Unemployment.csv")
+    df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
     #
-    # df2.index = df2['Datetime']
-    # df2 = df2.resample('M').sum().reset_index()
-    # df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
+    df2.index = df2['Datetime']
+    df2 = df2.resample('M').sum().reset_index()
+    df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
     dftweet = df.copy()
     dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
     s = pd.to_datetime(dftweet['Datetime'])
@@ -170,7 +170,7 @@ def update_graph(option_selected):
     # merged = normalize(merged)
     dffn = normalize(df33)
     dftrumpn = normalize(mergedd)
-    # df2n = normalize(df2)
+    df2n = normalize(df2)
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv",parse_dates=['Datetime'])
     tweet = tweet.set_index('Datetime')
     result = tweet.reset_index().groupby(                                        \
