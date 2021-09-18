@@ -124,7 +124,7 @@ app.layout = html.Div(
                                  ])
                              ]), dbc.Row([
                                 dbc.Col(md=3),
-
+                                dbc.Col(dcc.Graph(id="unemployment_graph"),md=6)
 
 
                                  ]), dbc.Row([
@@ -143,6 +143,7 @@ app.layout = html.Div(
      Output(component_id='my_tweet_map', component_property='figure'),
        Output(component_id='stack_bargraph', component_property='figure'),
       Output(component_id='my_covid_map', component_property='figure'),
+      Output(component_id='unemployment_graph', component_property='figure'),
     [Input(component_id='selected_keyword', component_property='value')])
 def update_graph(option_selected):
     df2 = pd.read_csv("Unemployment.csv")
@@ -191,7 +192,7 @@ def update_graph(option_selected):
     resultn = normalize(resulty)
     fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ")
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
-#     fig.add_scatter(x=df2['Datetime'], y=df2n['Unemployment_Rate'])
+    fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
 
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
@@ -225,7 +226,7 @@ def update_graph(option_selected):
     # fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
     fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
     fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
-    return fig, fig2, fig3  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
+    return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 
 
 if __name__ == '__main__':
