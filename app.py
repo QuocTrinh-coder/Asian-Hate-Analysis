@@ -192,7 +192,7 @@ def update_graph(option_selected):
     fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ")
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
     fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
-    fig4.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
+    fig4.add_scatter(x=df33['Datetime'], y=resultn['Text'],   name='Anti-Asian Tweets',)
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
 #     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
