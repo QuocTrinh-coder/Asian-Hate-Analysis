@@ -189,7 +189,9 @@ def update_graph(option_selected):
     covidn = normalize(covid)
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
-    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ")
+    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ",
+    labels = {'x':"Datetime<br><sup> We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets. We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).</sup>",
+              'y':'Magnitude'})
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
     fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
     fig4.add_scatter(x=df33['Datetime'], y=resultn['Text'],   name='Anti-Asian Tweets',)
