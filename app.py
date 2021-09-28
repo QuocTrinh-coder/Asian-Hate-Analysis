@@ -193,22 +193,18 @@ def update_graph(option_selected):
     labels = {'x':"This is a graph comparing Trump’s use of Anti-Asian rhetoric on Twitter, to the overall trends of posts on Twitter that use Anti-Asian slurs. Negative Tweets refer to tweets that are hateful towards the Asian Community. Positive Tweets refer to Tweets that are in opposition to Asian hate or are in support of ending Asian hate. Neutral refers to tweets that are neither positive nor negative. Select lines in the key to make the corresponding line disappear from the graph. The data from Trump’s tweets were scraped from https://www.thetrumparchive.com/. The overall tweets were scraped from Twitter’s database using a Twitter developer account./n *All values were normalized on the y-axis for viewing purposes*",
               'y':'Magnitude'})
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
-    fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
+    fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment Rate",
+    labels = {'x':"This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets. Select the line in the key to make the corresponding line disappear from the graph. The National unemployment data used in the graph was gathered from https://www.bls.gov/. The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.",
+              'y':'National Unemployment Rate'})
     fig4.add_scatter(x=df33['Datetime'], y=resultn['Text'],   name='Anti-Asian Tweets',)
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
 #     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
-    fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
+    fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally",
+    labels = {'x':"This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.  Select the line in the key to make the corresponding line disappear from the graph. The data of national COVID-19 cases were gathered from the CDC at: https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36. The Anti-Asian Tweets were scraped from Twitter’s database using a Twitter developer account.",
+              'y':'Number of New COVID-19 Deaths'})
     fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
 
-    fig.update_layout(
-    xaxis_title="Datetime",
-    yaxis_title="Magnitude",
-   # font=dict(
-   #     family="Courier New, monospace",
-  #      size=18,
-    #    color="#7f7f7f"
-   # )
 )
 
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
@@ -221,7 +217,9 @@ def update_graph(option_selected):
                   [pd.Grouper(key='Datetime', freq='1w'), 'key word'] \
                 ).count().unstack(fill_value=0).stack().reset_index()
     # result=result[pd.to_numeric(result['new_case'], errors='coerce').notnull()]
-    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter",
+    labels = {'x':"This is a graph representing the number of times a specific derogatory term was used each week along side a timeline of when Trump used Anti-Asian Rhetoric on Twitter. Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms directed towards Asians were scraped from Twitter’s database. The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.",
+              'y':'Number of Tweets'})
     fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
 
     # fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
