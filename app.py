@@ -144,6 +144,13 @@ app.layout = html.Div(
       Output(component_id='my_covid_map', component_property='figure'),
       Output(component_id='unemployment_graph', component_property='figure'),
     [Input(component_id='selected_keyword', component_property='value')])
+def format_title(title, subtitle=None, subtitle_font_size=14):
+    title = f'<b>{title}</b>'
+    if not subtitle:
+        return title
+    subtitle = f'<span style="font-size: {subtitle_font_size}px;">{subtitle}</span>'
+    return f'{title}<br>{subtitle}'
+
 def update_graph(option_selected):
     df2 = pd.read_csv("Unemployment.csv")
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
@@ -189,9 +196,30 @@ def update_graph(option_selected):
     covidn = normalize(covid)
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
-    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ",
-    labels = {'x':"This is a graph comparing Trump’s use of Anti-Asian rhetoric on Twitter, to the overall trends of posts on Twitter that use Anti-Asian slurs. Negative Tweets refer to tweets that are hateful towards the Asian Community. Positive Tweets refer to Tweets that are in opposition to Asian hate or are in support of ending Asian hate. Neutral refers to tweets that are neither positive nor negative. Select lines in the key to make the corresponding line disappear from the graph. The data from Trump’s tweets were scraped from https://www.thetrumparchive.com/. The overall tweets were scraped from Twitter’s database using a Twitter developer account.\n *All values were normalized on the y-axis for viewing purposes*",
-              'y':'Magnitude'})
+    custom_template = {
+    "layout": go.Layout(
+        font={
+            "family": "Nunito",
+            "size": 12,
+            "color": "#707070",
+        },
+        title={
+            "font": {
+                "family": "Lato",
+                "size": 18,
+                "color": "#1f1f1f",
+            },
+        },
+        plot_bgcolor="#ffffff",
+        paper_bgcolor="#ffffff",
+        colorway=px.colors.qualitative.G10,
+    )
+}
+    fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = format_title("Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ","This is a graph comparing Trump’s use of Anti-Asian rhetoric on Twitter, to the overall trends of posts on Twitter that use Anti-Asian slurs. Negative Tweets refer to tweets that are hateful towards the Asian Community. Positive Tweets refer to Tweets that are in opposition to Asian hate or are in support of ending Asian hate. Neutral refers to tweets that are neither positive nor negative. Select lines in the key to make the corresponding line disappear from the graph. The data from Trump’s tweets were scraped from https://www.thetrumparchive.com/. The overall tweets were scraped from Twitter’s database using a Twitter developer account.\n *All values were normalized on the y-axis for viewing purposes*"),
+    labels = {'x':"",
+              'y':'Magnitude',},template=custom_template)
+
+
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
     fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment Rate",
     labels = {'x':"This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.\n Select the line in the key to make the corresponding line disappear from the graph.\n The National unemployment data used in the graph was gathered from https://www.bls.gov/. The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.",
