@@ -205,7 +205,7 @@ def update_graph(option_selected):
               'y':'Number of New COVID-19 Deaths'})
     fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
 
-)
+
 
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
     tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
