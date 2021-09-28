@@ -190,13 +190,13 @@ def update_graph(option_selected):
     # result['Text'] = result['Text'].astype(float)
     resultn = normalize(resulty)
     fig = px.line(result, x= 'Datetime', y=resultn['Text'],color='analysis', title = "Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time ",
-    labels = {'x':"This is a graph comparing Trump’s use of Anti-Asian rhetoric on Twitter, to the overall trends of posts on Twitter that use Anti-Asian slurs. Negative Tweets refer to tweets that are hateful towards the Asian Community. Positive Tweets refer to Tweets that are in opposition to Asian hate or are in support of ending Asian hate. Neutral refers to tweets that are neither positive nor negative. Select lines in the key to make the corresponding line disappear from the graph. The data from Trump’s tweets were scraped from https://www.thetrumparchive.com/. The overall tweets were scraped from Twitter’s database using a Twitter developer account./n *All values were normalized on the y-axis for viewing purposes*",
+    labels = {'x':"This is a graph comparing Trump’s use of Anti-Asian rhetoric on Twitter, to the overall trends of posts on Twitter that use Anti-Asian slurs. Negative Tweets refer to tweets that are hateful towards the Asian Community. Positive Tweets refer to Tweets that are in opposition to Asian hate or are in support of ending Asian hate. Neutral refers to tweets that are neither positive nor negative. Select lines in the key to make the corresponding line disappear from the graph. The data from Trump’s tweets were scraped from https://www.thetrumparchive.com/. The overall tweets were scraped from Twitter’s database using a Twitter developer account.\n *All values were normalized on the y-axis for viewing purposes*",
               'y':'Magnitude'})
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
     fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment Rate",
-    labels = {'x':"This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets. Select the line in the key to make the corresponding line disappear from the graph. The National unemployment data used in the graph was gathered from https://www.bls.gov/. The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.",
+    labels = {'x':"This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.\n Select the line in the key to make the corresponding line disappear from the graph.\n The National unemployment data used in the graph was gathered from https://www.bls.gov/. The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.",
               'y':'National Unemployment Rate'})
-    fig4.add_scatter(x=df33['Datetime'], y=resultn['Text'],   name='Anti-Asian Tweets',)
+
 
     #fig= px.line(covid, x= "Date", y=covid['positiveIncrease'],title = "Tweet Mention of China Virus")
 #     fig.add_scatter(x=covid['submission_date'], y=covidn['new_death'])
@@ -223,8 +223,6 @@ def update_graph(option_selected):
     fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
 
     # fig2 = px.line(df2, x="Datetime", y= 'Unemployment_Rate', title = "Covid Cases Increases by Date in Different States")
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
     return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 
 
