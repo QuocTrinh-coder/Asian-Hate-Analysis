@@ -164,7 +164,7 @@ def update_graph(option_selected):
     covidn = normalize(covid)
     resultn = normalize(resulty)
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     fig = px.line(result, x= 'Datetime',
                   y=resultn['Text'],
@@ -178,7 +178,7 @@ def update_graph(option_selected):
         ),
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).</sup>"
+                text="Datetime<br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
@@ -188,7 +188,7 @@ def update_graph(option_selected):
             ),
         )
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
     tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
@@ -200,17 +200,65 @@ def update_graph(option_selected):
                 ).count().unstack(fill_value=0).stack().reset_index()
     fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
     fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
-
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    fig2.update_layout(
+        title=go.layout.Title(
+            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b> <br><sup>Plot Subtitle</sup>",
+            xref="paper",
+            x=0
+        ),
+            xaxis=go.layout.XAxis(
+            title=go.layout.xaxis.Title(
+                text="Datetime<br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter. Select the line in the key to make the corresponding line disappear from the graph. The data of national COVID-19 cases were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s database using a Twitter developer account.</sup>"
+                )
+            ),
+           yaxis=go.layout.YAxis(
+            title=go.layout.yaxis.Title(
+                text="Magnitude"
+                )
+            ),
+        )
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
     fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
-
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    fig3.update_layout(
+        title=go.layout.Title(
+            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b> <br><sup>Plot Subtitle</sup>",
+            xref="paper",
+            x=0
+        ),
+            xaxis=go.layout.XAxis(
+            title=go.layout.xaxis.Title(
+                text="Datetime<br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets. Select the line in the key to make the corresponding line disappear from the graph. The National unemployment data used in the graph was gathered from https://www.bls.gov/. The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.<br> *All values were normalized for viewing purposes*</sup>"
+                )
+            ),
+           yaxis=go.layout.YAxis(
+            title=go.layout.yaxis.Title(
+                text="Magnitude"
+                )
+            ),
+        )
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
-
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    fig4.update_layout(
+        title=go.layout.Title(
+            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b> <br><sup>Plot Subtitle</sup>",
+            xref="paper",
+            x=0
+        ),
+            xaxis=go.layout.XAxis(
+            title=go.layout.xaxis.Title(
+                text="Datetime<br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter. Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms directed towards Asians were scraped from Twitter’s database. The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.</sup>"
+                )
+            ),
+           yaxis=go.layout.YAxis(
+            title=go.layout.yaxis.Title(
+                text="Magnitude"
+                )
+            ),
+        )
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 if __name__ == '__main__':
