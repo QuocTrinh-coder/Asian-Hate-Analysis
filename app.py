@@ -163,9 +163,13 @@ def update_graph(option_selected):
     covid['new_death'] = covid['new_death'].astype(float)
     covidn = normalize(covid)
     resultn = normalize(resulty)
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
     fig = px.line(result, x= 'Datetime',
                   y=resultn['Text'],
                   color='analysis', )
+    fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
     fig.update_layout(
         title=go.layout.Title(
             text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b> <br><sup>Plot Subtitle</sup>",
@@ -183,12 +187,8 @@ def update_graph(option_selected):
                 )
             ),
         )
-    fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
 
-    fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
-    fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
-    fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
-
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
     tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
@@ -200,8 +200,18 @@ def update_graph(option_selected):
                 ).count().unstack(fill_value=0).stack().reset_index()
     fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
     fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+    fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
+    fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+    fig4 = px.line(x=df2['Datetime'], y=df2n['Unemployment_Rate'], title = "Unemployment Rate")
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
     return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
 if __name__ == '__main__':
     app.run_server(debug=True,use_reloader=False, port = 9001)
