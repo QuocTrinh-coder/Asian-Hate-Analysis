@@ -178,7 +178,7 @@ def update_graph(option_selected):
         ),
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
+                text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
@@ -201,19 +201,14 @@ def update_graph(option_selected):
     fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
     fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
     fig2.update_layout(
-        title=go.layout.Title(
-            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b> <br><sup>Plot Subtitle</sup>",
-            xref="paper",
-            x=0
-        ),
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter. Select the line in the key to make the corresponding line disappear from the graph. The data of national COVID-19 cases were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s database using a Twitter developer account.</sup>"
+                text="Datetime<br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The data of national COVID-19 cases were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36).<br> The Anti-Asian Tweets were scraped from Twitter’s database using a Twitter developer account.</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
             title=go.layout.yaxis.Title(
-                text="Magnitude"
+                text="Count of Racially Derogatory Scraped Tweets"
                 )
             ),
         )
