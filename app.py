@@ -196,11 +196,10 @@ def update_graph(option_selected):
                   [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
                 ).count().unstack(fill_value=0).stack().reset_index()
     fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
-    fig2.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'], mode='markers')
     fig2.update_layout(
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms<br> directed towards Asians were scraped from Twitter’s database. The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.</sup>"
+                text="Datetime<br><br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms<br> directed towards Asians were scraped from Twitter’s database.</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
