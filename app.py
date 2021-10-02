@@ -170,7 +170,7 @@ def update_graph(option_selected):
     fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
     fig.update_layout(
         title=go.layout.Title(
-            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b> <br><sup>Plot Subtitle</sup>",
+            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b>",
             xref="paper",
             x=0
         ),
@@ -200,7 +200,7 @@ def update_graph(option_selected):
     fig2.update_layout(
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms<br> directed towards Asians were scraped from Twitter’s database. The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.</sup>"
+                text="Datetime<br><br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms<br> directed towards Asians were scraped from Twitter’s database. The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
@@ -216,12 +216,12 @@ def update_graph(option_selected):
     fig3.update_layout(
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.The data of national COVID-19 cases<br> were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s<br> database using a Twitter developer account.</sup>"
+                text="Datetime<br><br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.The data of national COVID-19 cases<br> were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s<br> database using a Twitter developer account.</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
             title=go.layout.yaxis.Title(
-                text="Count of COVID-19 Related Deaths Nationally"
+                text="Count of COVID-19 Related<br>Deaths Nationally"
                 )
             ),
         )
@@ -231,7 +231,7 @@ def update_graph(option_selected):
     fig4.update_layout(
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
+                text="Datetime<br><br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
                     )
             ),
            yaxis=go.layout.YAxis(
