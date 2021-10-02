@@ -163,9 +163,7 @@ def update_graph(option_selected):
     covid['new_death'] = covid['new_death'].astype(float)
     covidn = normalize(covid)
     resultn = normalize(resulty)
-
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
+    #
     fig = px.line(result, x= 'Datetime',
                   y=resultn['Text'],
                   color='analysis', )
@@ -188,8 +186,7 @@ def update_graph(option_selected):
             ),
         )
 
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
+#
     tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
     tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
     tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
@@ -244,6 +241,6 @@ def update_graph(option_selected):
         )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    return fig, fig2, fig3, fig4  #the return obj will be the output and if there are many output, it will go in order ( 1 obj => 1st output)
+    return fig, fig2, fig3, fig4
 if __name__ == '__main__':
     app.run_server(debug=True,use_reloader=False, port = 9001)
