@@ -87,7 +87,7 @@ app.layout = html.Div(
                                      className='dropdown_items',
                                      children=[
                                          dbc.Row([
-                                             dbc.Col(dcc.Graph(id="my_tweet_map"),md=12),
+                                             dbc.Col(dcc.Graph(id="my_tweet_map"),figure=fig,md=12),
                                          ])
                                      ],
                                      style={'color': '#1E1E1E'})
@@ -96,12 +96,12 @@ app.layout = html.Div(
                     html.Div(className='eight columns div-for-charts bg-grey',
                              children=[
                                  dbc.Row([
-                                 dbc.Col(dcc.Graph(id="my_covid_map"),md=6),
-                                dbc.Col(dcc.Graph(id="unemployment_graph"),md=6)
+                                 dbc.Col(dcc.Graph(id="my_covid_map"),figure=fig4,md=6),
+                                dbc.Col(dcc.Graph(id="unemployment_graph"),figure=fig3,md=6)
                                  ])
                              ]), dbc.Row([
                                 dbc.Col(md=3),
-                                dbc.Col(dcc.Graph(id="stack_bargraph"),md=12)
+                                dbc.Col(dcc.Graph(id="stack_bargraph"),figure=fig2,md=12)
                                  ]), dbc.Row([
                                 dbc.Col(md=3),
                                  ])
