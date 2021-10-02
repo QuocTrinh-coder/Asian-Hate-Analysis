@@ -170,7 +170,7 @@ fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets'
 fig3.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
-            text="Datetime<br><br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.The data of national COVID-19 cases<br> were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s<br> database using a Twitter developer account.</sup>"
+            text="Datetime<br><br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.The data of national COVID-19 cases<br> were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets<br> were scraped from Twitter’s<br> database using a Twitter developer account.</sup>"
             )
         ),
        yaxis=go.layout.YAxis(
@@ -185,7 +185,7 @@ fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemploym
 fig4.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
-            text="Datetime<br><br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
+            text="Datetime<br><br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
                 )
         ),
        yaxis=go.layout.YAxis(
@@ -200,7 +200,7 @@ app.layout = html.Div(
                  children=[
                     html.Div(className='four columns div-user-controls',
                              children=[
-                                 html.H1('How has covid-19, Trump, and unemployment rates impacted anti-Asian sentiment on Twitter?',style={'textAlign': 'center', 'color': 'black'}),
+                                 html.H1('How has Covid-19, Trump, and Unemployment Rates Impacted Anti-Asian Sentiment on Twitter?',style={'textAlign': 'center', 'color': 'black'}),
         html.H4("Amidst a global pandemic, the number of reported Asian-related crimes have spiked. Derogatory terms such as “China-Virus” sponsored by former President Donald Trump have sparked xenophobia and racism towards the Asian Community. His actions have given life to new disgustingly blatantly racist slurs. In combination with fears of COVID-19 and growing unemployment around the country, China has been pinned by many for their misfortune. The Asian-American community however has been subject to racial discrimination and violence, with news surfacing all around the country, from an elderly Asian woman attacked in San Francisco, California, forced to defend herself with a wooden plank, to the deadly spa shootings in Atlanta Georgia. Violence against the Asian-American community is rising.", style={'textAlign': 'center',  'fontSize': 14}),
         html.H4("Our mission is to bring to light the ongoing rise in Anti-Asian sentiment in society and factors relating to its growth, by studying the correlation between national COVID-19 case surges, unemployment, Trump’s use of Asian derogatory terms, and racist tweets on Twitter. ", style={'textAlign': 'center',  'fontSize': 14})  ,
         html.H4("We stand in solidarity with the Asian-American Community.", style={'textAlign': 'center',  'fontSize': 14}),
