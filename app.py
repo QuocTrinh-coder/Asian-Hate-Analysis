@@ -205,7 +205,7 @@ def update_graph(option_selected):
             ),
            yaxis=go.layout.YAxis(
             title=go.layout.yaxis.Title(
-                text="Count of Racially Derogatory Scraped Tweets"
+                text="Count of Racially Derogatory<br> Scraped Tweets"
                 )
             ),
         )
