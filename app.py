@@ -107,134 +107,127 @@ app.layout = html.Div(
                                  ])
                                                    ])
 )
-@app.callback(
-     Output(component_id='my_tweet_map', component_property='figure'),
-       Output(component_id='stack_bargraph', component_property='figure'),
-      Output(component_id='my_covid_map', component_property='figure'),
-      Output(component_id='unemployment_graph', component_property='figure'),
-    )
-def update_graph():
 
-    df2 = pd.read_csv("Unemployment.csv")
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
-    df2.index = df2['Datetime']
-    df2 = df2.resample('M').sum().reset_index()
-    df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
-    dftweet = df.copy()
-    dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
-    s = pd.to_datetime(dftweet['Datetime'])
-    df33 = s.groupby(s.dt.floor('d')).size().reset_index(name='count')
-    df33['Datetime'] = pd.to_datetime(df33['Datetime'], errors='coerce')
-    dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
-    dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
-    ss = pd.to_datetime(dftrump['Date:'])
-    dff = ss.groupby(ss.dt.floor('d')).size().reset_index(name='count')
-    dff["Datetime"] = dff["Date:"]
-    dff= dff[['Datetime', 'count']]
-    dff['Datetime'] = pd.to_datetime(dff['Datetime'], errors='coerce')
-    dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
-    df33['Datetime'] = pd.to_datetime(df33['Datetime'], utc = True)
-    mergedd = df33.merge(dff, how='right', on='Datetime')
-    dfcovid = pd.read_csv('covid_cases_US.csv')
-    dffn = normalize(df33)
-    dftrumpn = normalize(mergedd)
-    df2n = normalize(df2)
 
-    tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv",parse_dates=['Datetime'])
-    tweet = tweet.set_index('Datetime')
-    result = tweet.reset_index().groupby(                                        \
-              [pd.Grouper(key='Datetime', freq='1d'), 'analysis'] \
-            ).count().unstack(fill_value=0).stack().reset_index()
-    result=result[pd.to_numeric(result['Text'], errors='coerce').notnull()]
-    resulty = result[['Datetime', 'Text', ]]
+df2 = pd.read_csv("Unemployment.csv")
+df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
+df2.index = df2['Datetime']
+df2 = df2.resample('M').sum().reset_index()
+df2['Datetime'] = pd.to_datetime(df2['Datetime'], utc = True)
+dftweet = df.copy()
+dftweet['Datetime'] = pd.to_datetime(dftweet['Datetime'], errors='coerce')
+s = pd.to_datetime(dftweet['Datetime'])
+df33 = s.groupby(s.dt.floor('d')).size().reset_index(name='count')
+df33['Datetime'] = pd.to_datetime(df33['Datetime'], errors='coerce')
+dftrump = pd.read_csv("Trump Hate Tweets - Sheet1.csv")
+dftrump['Date:'] = pd.to_datetime(dftrump['Date:'], errors='coerce')
+ss = pd.to_datetime(dftrump['Date:'])
+dff = ss.groupby(ss.dt.floor('d')).size().reset_index(name='count')
+dff["Datetime"] = dff["Date:"]
+dff= dff[['Datetime', 'count']]
+dff['Datetime'] = pd.to_datetime(dff['Datetime'], errors='coerce')
+dff['Datetime'] = pd.to_datetime(dff['Datetime'], utc = True)
+df33['Datetime'] = pd.to_datetime(df33['Datetime'], utc = True)
+mergedd = df33.merge(dff, how='right', on='Datetime')
+dfcovid = pd.read_csv('covid_cases_US.csv')
+dffn = normalize(df33)
+dftrumpn = normalize(mergedd)
+df2n = normalize(df2)
 
-    covid = pd.read_csv('Covid_data.csv')
-    covid['submission_date'] = pd.to_datetime(covid['submission_date'], errors='coerce')
-    covid.index = covid['submission_date']
-    covid = covid.resample('d').sum().reset_index()
-    covid['submission_date'] = pd.to_datetime(covid['submission_date'], utc = True)
-    covid = covid[['submission_date', 'new_death']]
-    covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
-    covid['new_death'] = covid['new_death'].astype(float)
-    covidn = normalize(covid)
-    resultn = normalize(resulty)
-    #
-    fig = px.line(result, x= 'Datetime',
-                  y=resultn['Text'],
-                  color='analysis', )
-    fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
-    fig.update_layout(
-        title=go.layout.Title(
-            text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b>",
-            xref="paper",
-            x=0
+tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv",parse_dates=['Datetime'])
+tweet = tweet.set_index('Datetime')
+result = tweet.reset_index().groupby(                                        \
+          [pd.Grouper(key='Datetime', freq='1d'), 'analysis'] \
+        ).count().unstack(fill_value=0).stack().reset_index()
+result=result[pd.to_numeric(result['Text'], errors='coerce').notnull()]
+resulty = result[['Datetime', 'Text', ]]
+
+covid = pd.read_csv('Covid_data.csv')
+covid['submission_date'] = pd.to_datetime(covid['submission_date'], errors='coerce')
+covid.index = covid['submission_date']
+covid = covid.resample('d').sum().reset_index()
+covid['submission_date'] = pd.to_datetime(covid['submission_date'], utc = True)
+covid = covid[['submission_date', 'new_death']]
+covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
+covid['new_death'] = covid['new_death'].astype(float)
+covidn = normalize(covid)
+resultn = normalize(resulty)
+#
+fig = px.line(result, x= 'Datetime',
+              y=resultn['Text'],
+              color='analysis', )
+fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
+fig.update_layout(
+    title=go.layout.Title(
+        text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b>",
+        xref="paper",
+        x=0
+    ),
+        xaxis=go.layout.XAxis(
+        title=go.layout.xaxis.Title(
+            text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
+            )
         ),
-            xaxis=go.layout.XAxis(
-            title=go.layout.xaxis.Title(
-                text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
-                )
-            ),
-           yaxis=go.layout.YAxis(
-            title=go.layout.yaxis.Title(
-                text="Magnitude"
-                )
-            ),
-        )
+       yaxis=go.layout.YAxis(
+        title=go.layout.yaxis.Title(
+            text="Magnitude"
+            )
+        ),
+    )
 
 #
-    tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
-    tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
-    tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
-    tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], utc = True)
-    tweet = tweet[['Datetime', 'key word']]
-    result = tweet.reset_index().groupby(                                        \
-                  [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
-                ).count().unstack(fill_value=0).stack().reset_index()
-    fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
-    fig2.update_layout(
-            xaxis=go.layout.XAxis(
-            title=go.layout.xaxis.Title(
-                text="Datetime<br><br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms<br> directed towards Asians were scraped from Twitter’s database.</sup>"
-                )
-            ),
-           yaxis=go.layout.YAxis(
-            title=go.layout.yaxis.Title(
-                text="Count of Racially Derogatory<br> Scraped Tweets"
-                )
-            ),
-        )
+tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
+tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
+tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
+tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], utc = True)
+tweet = tweet[['Datetime', 'key word']]
+result = tweet.reset_index().groupby(                                        \
+              [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
+            ).count().unstack(fill_value=0).stack().reset_index()
+fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+fig2.update_layout(
+        xaxis=go.layout.XAxis(
+        title=go.layout.xaxis.Title(
+            text="Datetime<br><br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms<br> directed towards Asians were scraped from Twitter’s database.</sup>"
+            )
+        ),
+       yaxis=go.layout.YAxis(
+        title=go.layout.yaxis.Title(
+            text="Count of Racially Derogatory<br> Scraped Tweets"
+            )
+        ),
+    )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
-    fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
-    fig3.update_layout(
-            xaxis=go.layout.XAxis(
-            title=go.layout.xaxis.Title(
-                text="Datetime<br><br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.The data of national COVID-19 cases<br> were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s<br> database using a Twitter developer account.</sup>"
-                )
-            ),
-           yaxis=go.layout.YAxis(
-            title=go.layout.yaxis.Title(
-                text="Count of COVID-19 Related<br>Deaths Nationally"
-                )
-            ),
-        )
+fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
+fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
+fig3.update_layout(
+        xaxis=go.layout.XAxis(
+        title=go.layout.xaxis.Title(
+            text="Datetime<br><br><sup>This is a graph comparing the rise in national COVID-19 cases and Anti-Asian tweets on Twitter.<br> Select the line in the key to make the corresponding line disappear from the graph.The data of national COVID-19 cases<br> were gathered from the CDC (https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36). The Anti-Asian Tweets were scraped from Twitter’s<br> database using a Twitter developer account.</sup>"
+            )
+        ),
+       yaxis=go.layout.YAxis(
+        title=go.layout.yaxis.Title(
+            text="Count of COVID-19 Related<br>Deaths Nationally"
+            )
+        ),
+    )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment Rate")
-    fig4.update_layout(
-            xaxis=go.layout.XAxis(
-            title=go.layout.xaxis.Title(
-                text="Datetime<br><br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
-                    )
-            ),
-           yaxis=go.layout.YAxis(
-            title=go.layout.yaxis.Title(
-                text="National Unemployment Rate"
+fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment Rate")
+fig4.update_layout(
+        xaxis=go.layout.XAxis(
+        title=go.layout.xaxis.Title(
+            text="Datetime<br><br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
                 )
-            ),
-        )
+        ),
+       yaxis=go.layout.YAxis(
+        title=go.layout.yaxis.Title(
+            text="National Unemployment Rate"
+            )
+        ),
+    )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    return fig, fig2, fig3, fig4
 if __name__ == '__main__':
     app.run_server(debug=True,use_reloader=False, port = 9001)
