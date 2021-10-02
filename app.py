@@ -203,7 +203,7 @@ def update_graph(option_selected):
     fig2.update_layout(
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter. Select any of the keywords in the key to make the corresponding bar disappear from the graph. Data of specific derogatory terms directed towards Asians were scraped from Twitter’s database. The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.</sup>"
+                text="Datetime<br><sup>This is a graph representing the number of times a specific derogatory term was used each week alongside a timeline of when Trump used Anti-Asian Rhetoric on Twitter.<br> Select any of the keywords in the key to make the corresponding bar disappear from the graph.<br> Data of specific derogatory terms directed towards Asians were scraped from Twitter’s database.<br> The dates of Trump’s Tweets were scraped from https://www.thetrumparchive.com/.</sup>"
                 )
             ),
            yaxis=go.layout.YAxis(
@@ -234,7 +234,7 @@ def update_graph(option_selected):
     fig4.update_layout(
             xaxis=go.layout.XAxis(
             title=go.layout.xaxis.Title(
-                text="Datetime<br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets. Select the line in the key to make the corresponding line disappear from the graph. The National unemployment data used in the graph was gathered from https://www.bls.gov/. The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
+                text="Datetime<br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> Select the line in the key to make the corresponding line disappear from the graph.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
             ),
            yaxis=go.layout.YAxis(
             title=go.layout.yaxis.Title(
