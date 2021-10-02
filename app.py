@@ -74,40 +74,6 @@ df['Count of Chinese Virus'] = df['Text'].str.count('Chinese Virus')
 df['Count of Bat Eater'] = df['Text'].str.count('Bat Eater')
 df['Count of nukechina'] = df['Text'].str.count('nukechina')
 #app layout section
-app.layout = html.Div(
-        html.Div(style={'backgroundColor': colors['background'], 'color': colors['text'], 'height':'100vh', 'width':'100%', 'height':'100%', 'top':'0px', 'left':'0px'},
-                 children=[
-                    html.Div(className='four columns div-user-controls',
-                             children=[
-                                 html.H1('How has covid-19, Trump, and unemployment rates impacted anti-Asian sentiment on Twitter?',style={'textAlign': 'center', 'color': 'black'}),
-        html.H4("Amidst a global pandemic, the number of reported Asian-related crimes have spiked. Derogatory terms such as “China-Virus” sponsored by former President Donald Trump have sparked xenophobia and racism towards the Asian Community. His actions have given life to new disgustingly blatantly racist slurs. In combination with fears of COVID-19 and growing unemployment around the country, China has been pinned by many for their misfortune. The Asian-American community however has been subject to racial discrimination and violence, with news surfacing all around the country, from an elderly Asian woman attacked in San Francisco, California, forced to defend herself with a wooden plank, to the deadly spa shootings in Atlanta Georgia. Violence against the Asian-American community is rising.", style={'textAlign': 'center',  'fontSize': 14}),
-        html.H4("Our mission is to bring to light the ongoing rise in Anti-Asian sentiment in society and factors relating to its growth, by studying the correlation between national COVID-19 case surges, unemployment, Trump’s use of Asian derogatory terms, and racist tweets on Twitter. ", style={'textAlign': 'center',  'fontSize': 14})  ,
-        html.H4("We stand in solidarity with the Asian-American Community.", style={'textAlign': 'center',  'fontSize': 14}),
-                                 html.Div(
-                                     className='dropdown_items',
-                                     children=[
-                                         dbc.Row([
-                                             dbc.Col(dcc.Graph(id="my_tweet_map",figure=fig),md=12),
-                                         ])
-                                     ],
-                                     style={'color': '#1E1E1E'})
-                                ]
-                             ),
-                    html.Div(className='eight columns div-for-charts bg-grey',
-                             children=[
-                                 dbc.Row([
-                                 dbc.Col(dcc.Graph(id="my_covid_map",figure=fig4),md=6),
-                                dbc.Col(dcc.Graph(id="unemployment_graph",figure=fig3),md=6)
-                                 ])
-                             ]), dbc.Row([
-                                dbc.Col(md=3),
-                                dbc.Col(dcc.Graph(id="stack_bargraph",figure=fig2),md=12)
-                                 ]), dbc.Row([
-                                dbc.Col(md=3),
-                                 ])
-                                                   ])
-)
-
 
 df2 = pd.read_csv("Unemployment.csv")
 df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
@@ -229,5 +195,38 @@ fig4.update_layout(
         ),
     )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+app.layout = html.Div(
+        html.Div(style={'backgroundColor': colors['background'], 'color': colors['text'], 'height':'100vh', 'width':'100%', 'height':'100%', 'top':'0px', 'left':'0px'},
+                 children=[
+                    html.Div(className='four columns div-user-controls',
+                             children=[
+                                 html.H1('How has covid-19, Trump, and unemployment rates impacted anti-Asian sentiment on Twitter?',style={'textAlign': 'center', 'color': 'black'}),
+        html.H4("Amidst a global pandemic, the number of reported Asian-related crimes have spiked. Derogatory terms such as “China-Virus” sponsored by former President Donald Trump have sparked xenophobia and racism towards the Asian Community. His actions have given life to new disgustingly blatantly racist slurs. In combination with fears of COVID-19 and growing unemployment around the country, China has been pinned by many for their misfortune. The Asian-American community however has been subject to racial discrimination and violence, with news surfacing all around the country, from an elderly Asian woman attacked in San Francisco, California, forced to defend herself with a wooden plank, to the deadly spa shootings in Atlanta Georgia. Violence against the Asian-American community is rising.", style={'textAlign': 'center',  'fontSize': 14}),
+        html.H4("Our mission is to bring to light the ongoing rise in Anti-Asian sentiment in society and factors relating to its growth, by studying the correlation between national COVID-19 case surges, unemployment, Trump’s use of Asian derogatory terms, and racist tweets on Twitter. ", style={'textAlign': 'center',  'fontSize': 14})  ,
+        html.H4("We stand in solidarity with the Asian-American Community.", style={'textAlign': 'center',  'fontSize': 14}),
+                                 html.Div(
+                                     className='dropdown_items',
+                                     children=[
+                                         dbc.Row([
+                                             dbc.Col(dcc.Graph(id="my_tweet_map",figure=fig),md=12),
+                                         ])
+                                     ],
+                                     style={'color': '#1E1E1E'})
+                                ]
+                             ),
+                    html.Div(className='eight columns div-for-charts bg-grey',
+                             children=[
+                                 dbc.Row([
+                                 dbc.Col(dcc.Graph(id="my_covid_map",figure=fig4),md=6),
+                                dbc.Col(dcc.Graph(id="unemployment_graph",figure=fig3),md=6)
+                                 ])
+                             ]), dbc.Row([
+                                dbc.Col(md=3),
+                                dbc.Col(dcc.Graph(id="stack_bargraph",figure=fig2),md=12)
+                                 ]), dbc.Row([
+                                dbc.Col(md=3),
+                                 ])
+                                                   ])
+)
 if __name__ == '__main__':
     app.run_server(debug=True,use_reloader=False, port = 9001)
