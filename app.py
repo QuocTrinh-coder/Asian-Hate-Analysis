@@ -85,12 +85,7 @@ app.layout = html.Div(
         html.H4("We stand in solidarity with the Asian-American Community.", style={'textAlign': 'center',  'fontSize': 14}),
                                  html.Div(
                                      className='dropdown_items',
-                                     children=[    dcc.Dropdown(id = "selected_keyword",
-                options=[
-                    {"label": x, "value": x} for x in sorted(df33['key word'].unique())],
-                 multi=False,
-                value= "China Virus"
-                 ),
+                                     children=[
                                          dbc.Row([
                                              dbc.Col(dcc.Graph(id="my_tweet_map"),md=12),
                                          ])
@@ -117,8 +112,8 @@ app.layout = html.Div(
        Output(component_id='stack_bargraph', component_property='figure'),
       Output(component_id='my_covid_map', component_property='figure'),
       Output(component_id='unemployment_graph', component_property='figure'),
-    [Input(component_id='selected_keyword', component_property='value')])
-def update_graph(option_selected):
+    )
+def update_graph():
 
     df2 = pd.read_csv("Unemployment.csv")
     df2['Datetime'] = pd.to_datetime(df2['Datetime'], errors='coerce')
