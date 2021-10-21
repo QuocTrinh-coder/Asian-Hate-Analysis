@@ -150,7 +150,7 @@ tweet = tweet[['Datetime', 'key word']]
 result = tweet.reset_index().groupby(                                        \
               [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
             ).count().unstack(fill_value=0).stack().reset_index()
-fig2 = px.bar(result, x="Datetime", y="index", color="Key Word", title="Count of Racial Slurs Used on Twitter")
+fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
 fig2.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
