@@ -150,7 +150,7 @@ tweet = tweet[['Datetime', 'key word']]
 result = tweet.reset_index().groupby(                                        \
               [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
             ).count().unstack(fill_value=0).stack().reset_index()
-fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+fig2 = px.bar(result, x="Datetime", y="index", color="Key Word", title="Count of Racial Slurs Used on Twitter")
 fig2.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
@@ -181,7 +181,7 @@ fig3.update_layout(
     )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment Rate")
+fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment in the United States")
 fig4.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
@@ -190,7 +190,7 @@ fig4.update_layout(
         ),
        yaxis=go.layout.YAxis(
         title=go.layout.yaxis.Title(
-            text="Rate of National Unemployment<br>(in % of the population)"
+            text="Rate of National Unemployment<br>(In % of the Population)"
             )
         ),
     )
