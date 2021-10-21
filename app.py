@@ -185,12 +185,12 @@ fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemploym
 fig4.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
-            text="Datetime<br><br><sup>This is a graph comparing the relationship between unemployment in the US and Anti-Asian tweets.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.<br> The Anti-Asian Tweets were scraped using a Twitter developer account from Twitter’s database.</sup>",
+            text="Datetime<br><br><sup>This is a graph of unemployment in the United States.<br> The National unemployment data used in the graph was gathered from https://www.bls.gov/.</sup>",
                 )
         ),
        yaxis=go.layout.YAxis(
         title=go.layout.yaxis.Title(
-            text="National Unemployment Rate"
+            text="Rate of National Unemployment<br>(in % of the population)"
             )
         ),
     )
@@ -200,7 +200,7 @@ app.layout = html.Div(
                  children=[
                     html.Div(className='four columns div-user-controls',
                              children=[
-                                 html.H1('How has Covid-19, Trump, and Unemployment Rates Impacted Anti-Asian Sentiment on Twitter?',style={'textAlign': 'center', 'color': 'black'}),
+                                 html.H1('How Has COVID-19, Trump, and Unemployment Rates Impacted Anti-Asian Sentiment on Twitter?',style={'textAlign': 'center', 'color': 'black'}),
         html.H4("Amidst a global pandemic, the number of reported Asian-related crimes have spiked. Derogatory terms such as “China-Virus” sponsored by former President Donald Trump have sparked xenophobia and racism towards the Asian Community. His actions have given life to new disgustingly blatantly racist slurs. In combination with fears of COVID-19 and growing unemployment around the country, China has been pinned by many for their misfortune. The Asian-American community however has been subject to racial discrimination and violence, with news surfacing all around the country, from an elderly Asian woman attacked in San Francisco, California, forced to defend herself with a wooden plank, to the deadly spa shootings in Atlanta Georgia. Violence against the Asian-American community is rising.", style={'textAlign': 'center',  'fontSize': 14}),
         html.H4("Our mission is to bring to light the ongoing rise in Anti-Asian sentiment in society and factors relating to its growth, by studying the correlation between national COVID-19 case surges, unemployment, Trump’s use of Asian derogatory terms, and racist tweets on Twitter. ", style={'textAlign': 'center',  'fontSize': 14})  ,
         html.H4("We stand in solidarity with the Asian-American Community.", style={'textAlign': 'center',  'fontSize': 14}),
