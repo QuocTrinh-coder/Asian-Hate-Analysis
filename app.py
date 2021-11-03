@@ -150,7 +150,7 @@ fig.update_layout(
     ),
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
-            text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
+            text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of times Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we pulled his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
             )
         ),
        yaxis=go.layout.YAxis(
