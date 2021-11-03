@@ -125,7 +125,7 @@ cols      = result['analysis'].map(colorsIdx)
 
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color="anaylsis",
+              color="analysis",
 
               labels={
                      "analysis": "Legend",
