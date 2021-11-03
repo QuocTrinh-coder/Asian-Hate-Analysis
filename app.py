@@ -118,7 +118,7 @@ covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
 covid['new_death'] = covid['new_death'].astype(float)
 covidn = normalize(covid)
 resultn = normalize(resulty)
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 colorsIdx = {'neutral': 'Neutral Tweets', 'negative': 'Negative Tweets',
              'positive': 'Positive Tweets'}
 
