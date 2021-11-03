@@ -121,11 +121,15 @@ resultn = normalize(resulty)
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 colorsIdx = {'neutral': 'Neutral Tweets', 'negative': 'Negative Tweets',
              'positive': 'Positive Tweets'}
-cols      = result['analysis'].map(colorsIdx)
+cols = result['analysis'].map(colorsIdx)
+
+resultpositive= result[result['analysis'] == 'positive']
+resultnegative= result[result['analysis'] == 'negative']
+resultneutral= result[result['analysis'] == 'neutral']
 
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color=cols,
+              color=resultneutral['analysis'],
 
               labels={
                      "analysis": "Legend",
@@ -133,6 +137,9 @@ fig = px.line(result, x= 'Datetime',
                      "positive": "Positive Tweets",
                      "neutral": "Neutral Tweets"
                  } )
+fig.add_scatter(result, x= 'Datetime', y=resultn['Text'],color=resultpositive['analysis'],name='Positive Tweets',line=dict(color="#00FF00")))
+
+fig.add_scatter(result, x= 'Datetime', y=resultn['Text'],color=resultnegative['analysis'],name='Negative Tweets',line=dict(color="#FF0000")))
 
 fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],name='Anti-Asian Trump Tweets',)
 fig.update_layout(
