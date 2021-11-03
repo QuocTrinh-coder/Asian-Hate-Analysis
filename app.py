@@ -125,7 +125,7 @@ cols      = result['analysis'].map(colorsIdx)
 
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color=cols,
+              color="anaysis",
 
               labels={
                      "analysis": "Legend",
@@ -133,7 +133,7 @@ fig = px.line(result, x= 'Datetime',
                      "positive": "Positive Tweets",
                      "neutral": "Neutral Tweets"
                  } )
-fig.add_scatter(result, x= 'Datetime',y=resultn['Text'],name='Negative Tweets',)
+
 fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],name='Anti-Asian Trump Tweets',)
 fig.update_layout(
     title=go.layout.Title(
