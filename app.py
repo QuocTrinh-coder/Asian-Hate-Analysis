@@ -161,7 +161,7 @@ tweet = tweet[['Datetime', 'key word']]
 result = tweet.reset_index().groupby(                                        \
               [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
             ).count().unstack(fill_value=0).stack().reset_index()
-fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="<b>Count of Racial Slurs Used on Twitter<b>")
 fig2.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
@@ -176,7 +176,7 @@ fig2.update_layout(
     )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
+fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "<b>Covid Cases Nationally<b>")
 fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
 fig3.update_layout(
         xaxis=go.layout.XAxis(
@@ -192,7 +192,7 @@ fig3.update_layout(
     )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment in the United States")
+fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "<b>Unemployment in the United States<b>")
 fig4.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
