@@ -119,12 +119,13 @@ covid['new_death'] = covid['new_death'].astype(float)
 covidn = normalize(covid)
 resultn = normalize(resulty)
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+colorsIdx = {'neutral': 'Neutral Tweets', 'negative': 'Negative Tweets',
+             'positive': 'Positive Tweets'}
+cols      = df['analysis'].map(colorsIdx)
 
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color='analysis', color_discrete_map={'neutral': 'yellow', 
-                                  'negative': 'red',
-                                  'positive': 'green'},
+              color=cols,
 
               labels={
                      "analysis": "Legend",
