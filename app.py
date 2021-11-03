@@ -118,10 +118,15 @@ covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
 covid['new_death'] = covid['new_death'].astype(float)
 covidn = normalize(covid)
 resultn = normalize(resulty)
-#
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color='analysis', )
+              color='analysis',labels={
+                     "analysis": "Legend",
+                     "negative": "Negative Tweets",
+                     "positive": "Positive Tweets",
+                     "neutral": "Neutral Tweets"
+                 } )
 fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
 fig.update_layout(
     title=go.layout.Title(
@@ -179,7 +184,7 @@ fig3.update_layout(
             )
         ),
     )
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment in the United States")
 fig4.update_layout(
