@@ -119,15 +119,21 @@ covid['new_death'] = covid['new_death'].astype(float)
 covidn = normalize(covid)
 resultn = normalize(resulty)
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color='analysis',labels={
+              color='analysis', color_discrete_map={'neutral': 'yellow', 
+                                  'negative': 'red',
+                                  'positive': 'green'},
+
+              labels={
                      "analysis": "Legend",
                      "negative": "Negative Tweets",
                      "positive": "Positive Tweets",
                      "neutral": "Neutral Tweets"
                  } )
-fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
+fig.add_scatter(result, x= 'Datetime',y=resultn['Text'],name='Negative Tweets',)
+fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],name='Anti-Asian Trump Tweets',)
 fig.update_layout(
     title=go.layout.Title(
         text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b>",
@@ -146,7 +152,7 @@ fig.update_layout(
         ),
     )
 
-#
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
 tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
 tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
