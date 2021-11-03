@@ -131,8 +131,9 @@ resultneutral= result[result['analysis'] == 'neutral']
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
               color=cols,
+              color_discrete_sequence=["red", "yellow", "green"],
               labels={
-                     "analysis": "Legend",
+                     "color": "Legend",
                      "negative": "Negative Tweets",
                      "positive": "Positive Tweets",
                      "neutral": "Neutral Tweets"
