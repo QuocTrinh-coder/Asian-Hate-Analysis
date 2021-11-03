@@ -121,7 +121,7 @@ resultn = normalize(resulty)
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 colorsIdx = {'neutral': 'Neutral Tweets', 'negative': 'Negative Tweets',
              'positive': 'Positive Tweets'}
-cols      = df['analysis'].map(colorsIdx)
+cols      = result['analysis'].map(colorsIdx)
 
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
