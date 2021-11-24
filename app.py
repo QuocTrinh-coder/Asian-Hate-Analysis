@@ -118,11 +118,31 @@ covid=covid[pd.to_numeric(covid['new_death'], errors='coerce').notnull()]
 covid['new_death'] = covid['new_death'].astype(float)
 covidn = normalize(covid)
 resultn = normalize(resulty)
-#
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+colorsIdx = {'neutral': 'Neutral Tweets', 'negative': 'Negative Tweets',
+             'positive': 'Positive Tweets'}
+
+cols = result['analysis'].map(colorsIdx)
+
+resultpositive= result[result['analysis'] == 'positive']
+resultnegative= result[result['analysis'] == 'negative']
+resultneutral= result[result['analysis'] == 'neutral']
+
 fig = px.line(result, x= 'Datetime',
               y=resultn['Text'],
-              color='analysis', )
-fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],   name='Anti-Asian Trump Tweets',)
+              color=cols,
+              color_discrete_sequence=["crimson", "gray", "green"],
+              labels={
+                     "color": "Legend",
+                     "negative": "Negative Tweets",
+                     "positive": "Positive Tweets",
+                     "neutral": "Neutral Tweets"
+                 } )
+#fig.add_scatter(resultpositive, x= 'Datetime', y=resultn['Text'],name="Positive Tweets",line=dict(color="#00FF00"))
+
+#fig.add_scatter(resultnegative, x= 'Datetime', y=resultn['Text'],name="Negative Tweets",line=dict(color="#FF0000"))
+
+fig.add_scatter(x=mergedd['Datetime'], y=dftrumpn['count_y'],name='Anti-Asian Trump Tweets',)
 fig.update_layout(
     title=go.layout.Title(
         text="<b>Trump and Twitter Tweets with Anti-Asian Vocabularly Over Time</b>",
@@ -131,7 +151,7 @@ fig.update_layout(
     ),
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
-            text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of time's Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we scraped his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
+            text="Datetime<br><br><sup>We scraped Twitter filtering for tweets that include derogatory terms against Asians. We then used an algorithm to determine the polarity of each tweet, separating them into three categories: Negative Tweets, Positive Tweets, and Neutral Tweets.<br> We included a fourth line representing the amount of times Former President Donald Trump used a derogatory term in his Tweets. Because of Trump's permanent ban on Twitter we pulled his Tweets from the Trump Archive(https://www.thetrumparchive.com/).<br> *All values were normalized on the y-axis for viewing purposes*</sup>"
             )
         ),
        yaxis=go.layout.YAxis(
@@ -141,7 +161,7 @@ fig.update_layout(
         ),
     )
 
-#
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 tweet = pd.read_csv("ALL_TWEET_SENTIMENT.csv")
 tweet = tweet[tweet['key word'].map(tweet['key word'].value_counts()) > 900]
 tweet['Datetime'] = pd.to_datetime(tweet['Datetime'], errors='coerce')
@@ -150,7 +170,7 @@ tweet = tweet[['Datetime', 'key word']]
 result = tweet.reset_index().groupby(                                        \
               [pd.Grouper(key='Datetime', freq='2w'), 'key word'] \
             ).count().unstack(fill_value=0).stack().reset_index()
-fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="Count of Racial Slurs Used on Twitter")
+fig2 = px.bar(result, x="Datetime", y="index", color="key word", title="<b>Count of Racial Slurs Used on Twitter<b>")
 fig2.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
@@ -165,7 +185,7 @@ fig2.update_layout(
     )
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "New Covid Cases Nationally")
+fig3 = px.line(covid, x='submission_date', y=covid['new_death'], title= "<b>Covid Cases Nationally<b>")
 fig3.add_scatter(x=df33['Datetime'], y=df33['count'],   name='Anti-Asian Tweets',)
 fig3.update_layout(
         xaxis=go.layout.XAxis(
@@ -179,9 +199,9 @@ fig3.update_layout(
             )
         ),
     )
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "Unemployment in the United States")
+fig4 = px.line(x=df2['Datetime'], y=df2['Unemployment_Rate'], title = "<b>Unemployment in the United States<b>")
 fig4.update_layout(
         xaxis=go.layout.XAxis(
         title=go.layout.xaxis.Title(
