@@ -224,8 +224,8 @@ app.layout = html.Div(
         html.H4("Amidst a global pandemic, the number of reported Asian-related crimes have spiked. Derogatory terms such as “China-Virus” sponsored by former President Donald Trump have sparked xenophobia and racism towards the Asian Community. His actions have given life to new disgustingly blatantly racist slurs. In combination with fears of COVID-19 and growing unemployment around the country, China has been pinned by many for their misfortune. The Asian-American community however has been subject to racial discrimination and violence, with news surfacing all around the country, from an elderly Asian woman attacked in San Francisco, California, forced to defend herself with a wooden plank, to the deadly spa shootings in Atlanta Georgia. Violence against the Asian-American community is rising.", style={'textAlign': 'center',  'fontSize': 14}),
         html.H4("Our mission is to bring to light the ongoing rise in anti-Asian sentiment in society and factors relating to its growth, by studying the correlation between national COVID-19 case surges, unemployment, Trump’s use of Asian derogatory terms, and racist tweets on Twitter. ", style={'textAlign': 'center',  'fontSize': 14})  ,
         html.H4("We stand in solidarity with the Asian-American Community.", style={'textAlign': 'center',  'fontSize': 14}),
-        html.H4("Creator : Quoc Dat Trinh & Nathan Shum", style={'textAlign': 'center',  'fontSize': 12}),
-        html.H4("Date Created : Oct 11, 2021", style={'textAlign': 'center',  'fontSize': 12}),
+        html.H4("Creators : Quoc Dat Trinh & Nathan Shum", style={'textAlign': 'center',  'fontSize': 12}),
+        html.H4("Date Published : Oct 11, 2021", style={'textAlign': 'center',  'fontSize': 12}),
 
                                  html.Div(
                                      className='dropdown_items',
